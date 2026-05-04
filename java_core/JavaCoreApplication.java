@@ -61,6 +61,7 @@ public class JavaCoreApplication {
         }
             */
         
+        /* Task 3
         Scanner sc = new Scanner(System.in);
         Task3 task = new Task3();
         System.out.println("Enter number of heights: ");
@@ -90,7 +91,38 @@ public class JavaCoreApplication {
         System.out.println("MEO count: " + task.countByType(heights, "MEO"));
         System.out.println("GEO count: " + task.countByType(heights, "GEO"));
         System.out.println("Highest orbit: " + task.findHighestOrbit(heights) + " km");
-    
+        */
 
+        Scanner sc = new Scanner(System.in);
+        Task4 task = new Task4();
+        System.out.println("Enter number of signals: ");
+        int count = sc.nextInt();
+        if(count <= 0){
+            System.out.println("Number of signals must be greater than zero.");
+            return;
+        }
+        ArrayList<Integer> signals = new ArrayList<>(count);
+        for(int i = 0; i < count; i++){
+            System.out.println("Enter signal: ");
+            int signal = sc.nextInt();
+            if(signal < 0 || signal > 100){
+                System.out.println("Signal must be between 0 and 100.");
+            } else {
+                signals.add(signal);
+            }
+        }
+        if(signals.size() == 0){
+            System.out.println("No signals entered.");
+            return;
+        }
+        for(int i = 0; i < signals.size(); i++){
+            System.out.println(signals.get(i) + "% " + " -> " + task.classifySignal(signals.get(i)));
+        }
+        System.out.println("NO SIGNAL count: " + task.countBySignalType(signals, "NO SIGNAL"));
+        System.out.println("WEAK count: " + task.countBySignalType(signals, "WEAK"));
+        System.out.println("MEDIUM count: " + task.countBySignalType(signals, "MEDIUM"));
+        System.out.println("STRONG count: " + task.countBySignalType(signals, "STRONG"));
+        System.out.println("Average signal: " + task.calculateAverageSignal(signals) + " %");
+    
     }
 }
