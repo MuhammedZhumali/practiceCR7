@@ -93,6 +93,7 @@ public class JavaCoreApplication {
         System.out.println("Highest orbit: " + task.findHighestOrbit(heights) + " km");
         */
 
+        /* TASK 4
         Scanner sc = new Scanner(System.in);
         Task4 task = new Task4();
         System.out.println("Enter number of signals: ");
@@ -123,6 +124,19 @@ public class JavaCoreApplication {
         System.out.println("MEDIUM count: " + task.countBySignalType(signals, "MEDIUM"));
         System.out.println("STRONG count: " + task.countBySignalType(signals, "STRONG"));
         System.out.println("Average signal: " + task.calculateAverageSignal(signals) + " %");
-    
+        */
+
+        Scanner sc = new Scanner(System.in);
+        Task5 task = new Task5();
+        System.out.println("Enter satellite name: ");
+        String name = sc.nextLine();
+        System.out.println("Enter battery level (0-100): ");
+        int battery = sc.nextInt();
+        System.out.println("Enter signal level (0-100): ");
+        int signal = sc.nextInt();
+        System.out.println("Enter orbit height (km): ");
+        double orbitHeight = sc.nextDouble();
+
+        System.out.println(name + " Status: " + task.checkSatelliteStatus(name, battery, signal, orbitHeight));
     }
 }
