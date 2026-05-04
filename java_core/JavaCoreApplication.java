@@ -23,6 +23,7 @@ public class JavaCoreApplication {
         System.out.println("Height of orbits: " + task.calculateMultipleHeights(vs));
          */
 
+        /* TASK 2
         Scanner sc = new Scanner(System.in);
         Task2 task = new Task2();
         System.out.println("Enter number of velocities: ");
@@ -58,6 +59,38 @@ public class JavaCoreApplication {
             }
             System.out.println(vs.get(i) + " m/s -> " + status);
         }
+            */
+        
+        Scanner sc = new Scanner(System.in);
+        Task3 task = new Task3();
+        System.out.println("Enter number of heights: ");
+        int count = sc.nextInt();
+        if(count <= 0){
+            System.out.println("Number of heights must be greater than zero.");
+            return;
+        }
+        ArrayList<Double> heights = new ArrayList<>(count);
+        for(int i = 0; i < count; i++){
+            System.out.println("Enter height: ");
+            double height = sc.nextDouble();
+            if(height <= 0){
+                continue;
+            } else {
+                heights.add(height);
+            }
+        }
+        if(heights.size() == 0){
+            System.out.println("No heights entered.");
+            return;
+        }
+        for(int i = 0; i < heights.size(); i++){
+            System.out.println(heights.get(i) + " km -> " + task.classifyOrbit(heights.get(i)));
+        }
+        System.out.println("LEO count: " + task.countByType(heights, "LEO"));
+        System.out.println("MEO count: " + task.countByType(heights, "MEO"));
+        System.out.println("GEO count: " + task.countByType(heights, "GEO"));
+        System.out.println("Highest orbit: " + task.findHighestOrbit(heights) + " km");
+    
 
     }
 }
