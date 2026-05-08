@@ -56,6 +56,13 @@ public class JavaCoreTask {
     public boolean isLowEarthOrbitSpeed(double velocity){
         return velocity >= 7000 && velocity <= 8000;
     }
+
+    public String classifyVelocity(double velocity){
+        if(isLowEarthOrbitSpeed(velocity)){
+            return "LEO SPEED";
+        }
+        return "NON LEO SPEED";
+    }
     
     
     public int countStatus(ArrayList<String> statuses, String targetStatus){
@@ -105,22 +112,36 @@ public class JavaCoreTask {
         if(signalList == null || signalList.size() == 0){
             return -1;
         }
-        int avg = 0;
+        int sum = 0;
+        int validCount = 0;
         for(int i = 0; i < signalList.size(); i++){
-            avg+= signalList.get(i);
+            if(signalList.get(i) >= 0 && signalList.get(i) <= 100){
+                sum += signalList.get(i);
+                validCount++;
+           }
         }
-        return (double) avg / signalList.size();
+        if(validCount == 0){
+            return -1;
+        }
+        return (double) sum / validCount;
     }
 
     public double calculateAverageOrbitHeight(ArrayList<Double> heihgts){
         if(heihgts == null || heihgts.size() == 0){
             return -1;
         }
-        double avg = 0;
+        double sum = 0;
+        int validCount = 0;
         for(int i = 0; i < heihgts.size(); i++){
-            avg += heihgts.get(i);
+            if(heihgts.get(i) > 0){
+                sum += heihgts.get(i);
+                validCount++;
+            }
         }
-        return (double) avg/heihgts.size();
+        if(validCount == 0){
+            return -1;
+        }
+        return sum / validCount;
     }
 
     public boolean hasCriticalSatellite(ArrayList<String> statuses){

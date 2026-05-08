@@ -198,7 +198,10 @@ public class JavaCoreApplication {
         ArrayList<String> satteliteName = new ArrayList<>(count);
         ArrayList<Integer> signals = new ArrayList<>(count);
         ArrayList<Double> orbitHeights = new ArrayList<>(count);
-        
+        ArrayList<String> velocityTypes = new ArrayList<>(count);
+        ArrayList<String> orbitTypes = new ArrayList<>(count);
+        ArrayList<String> signalTypes = new ArrayList<>(count);
+
         for(int i = 0; i < count; i++){
             System.out.println("Enter satellite name: ");
             sc.nextLine();
@@ -207,17 +210,32 @@ public class JavaCoreApplication {
             System.out.println("Enter battery level (0-100): ");
             int battery = sc.nextInt();
             System.out.println("Enter signal level (0-100): ");
-            
             int signal = sc.nextInt();
             System.out.println("Enter orbit height (km): ");
-            
             double orbitHeight = sc.nextDouble();
+            System.out.println("Enter velocity (m/s): ");
+            double velocity = sc.nextDouble();
             
             String status = task.checkSatelliteStatus(name, battery, signal, orbitHeight);
             statuses.add(status);
             satteliteName.add(name);
             signals.add(signal);
             orbitHeights.add(orbitHeight);
+            velocityTypes.add(task.classifyVelocity(velocity));
+            orbitTypes.add(task.classifyOrbit(orbitHeight));
+            signalTypes.add(task.classifySignal(signal));
+        }
+
+        for(int i = 0; i < satteliteName.size(); i++){
+            if(satteliteName.get(i).trim().isEmpty()){
+                System.out.println("Satellite:");
+            } else {
+                System.out.println(satteliteName.get(i) + ":");
+            }
+            System.out.println("Status: " + statuses.get(i));
+            System.out.println("Orbit: " + orbitTypes.get(i));
+            System.out.println("Signal: " + signalTypes.get(i));
+            System.out.println("Velocity type: " + velocityTypes.get(i));
         }
 
         System.out.println("Mission report: ");
@@ -228,12 +246,11 @@ public class JavaCoreApplication {
         System.out.println("WEAK SIGNAL count: " + task.countStatus(statuses, "WEAK SIGNAL"));
         System.out.println("DECAY RISK count: " + task.countStatus(statuses, "DECAY RISK"));
         System.out.println("INVALID count: " + task.countStatus(statuses, "INVALID"));
-        System.out.println("LEO orbit count: " + task.countByType(orbitHeights, "LEO"));
-        System.out.println("MEO orbit count: " + task.countByType(orbitHeights, "MEO"));
-        System.out.println("GEO orbit count: " + task.countByType(orbitHeights, "GEO"));
-        System.out.println("Average signal strength: " + task.calculateAverageSignal(signals) + " %");
+        System.out.println("LEO orbit count: " + task.countStatus(orbitTypes, "LEO"));
+        System.out.println("MEO orbit count: " + task.countStatus(orbitTypes, "MEO"));
+        System.out.println("GEO orbit count: " + task.countStatus(orbitTypes, "GEO"));
+        System.out.println("Average signal: " + task.calculateAverageSignal(signals) + "%");
         System.out.println("Average orbit height: " + task.calculateAverageOrbitHeight(orbitHeights) + " km");
         System.out.println("Critical satellite exists: " + task.hasCriticalSatellite(statuses));
-
     }
 }
