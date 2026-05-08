@@ -141,7 +141,7 @@ public class JavaCoreApplication {
         System.out.println(name + " Status: " + task.checkSatelliteStatus(name, battery, signal, orbitHeight));
          */
 
-
+        /* TASK 6
         Scanner sc = new Scanner(System.in);
         Task6 task = new Task6();
         System.out.println("Enter number of satellites: ");
@@ -184,6 +184,56 @@ public class JavaCoreApplication {
         System.out.println("INVALID count: " + task.countStatus(statuses, "INVALID"));
 
         System.out.println("Critical satellite exists: " + task.hasCriticalSatellite(statuses));
+        */
        
+        JavaCoreTask task = new JavaCoreTask();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter number of satellites: ");
+        int count = sc.nextInt();
+        if(count <= 0){
+            System.out.println("Number of satellites must be greater than zero.");
+            return;
+        }
+        ArrayList<String> statuses = new ArrayList<>(count);
+        ArrayList<String> satteliteName = new ArrayList<>(count);
+        ArrayList<Integer> signals = new ArrayList<>(count);
+        ArrayList<Double> orbitHeights = new ArrayList<>(count);
+        
+        for(int i = 0; i < count; i++){
+            System.out.println("Enter satellite name: ");
+            sc.nextLine();
+            String name = sc.nextLine();
+
+            System.out.println("Enter battery level (0-100): ");
+            int battery = sc.nextInt();
+            System.out.println("Enter signal level (0-100): ");
+            
+            int signal = sc.nextInt();
+            System.out.println("Enter orbit height (km): ");
+            
+            double orbitHeight = sc.nextDouble();
+            
+            String status = task.checkSatelliteStatus(name, battery, signal, orbitHeight);
+            statuses.add(status);
+            satteliteName.add(name);
+            signals.add(signal);
+            orbitHeights.add(orbitHeight);
+        }
+
+        System.out.println("Mission report: ");
+        System.out.println("Total satellites: " + count);
+        System.out.println("OPERATIONAL count: " + task.countStatus(statuses, "OPERATIONAL"));
+        System.out.println("OFFLINE count: " + task.countStatus(statuses, "OFFLINE"));
+        System.out.println("LOW BATTERY count: " + task.countStatus(statuses, "LOW BATTERY"));
+        System.out.println("WEAK SIGNAL count: " + task.countStatus(statuses, "WEAK SIGNAL"));
+        System.out.println("DECAY RISK count: " + task.countStatus(statuses, "DECAY RISK"));
+        System.out.println("INVALID count: " + task.countStatus(statuses, "INVALID"));
+        System.out.println("LEO orbit count: " + task.countByType(orbitHeights, "LEO"));
+        System.out.println("MEO orbit count: " + task.countByType(orbitHeights, "MEO"));
+        System.out.println("GEO orbit count: " + task.countByType(orbitHeights, "GEO"));
+        System.out.println("Average signal strength: " + task.calculateAverageSignal(signals) + " %");
+        System.out.println("Average orbit height: " + task.calculateAverageOrbitHeight(orbitHeights) + " km");
+        System.out.println("Critical satellite exists: " + task.hasCriticalSatellite(statuses));
+
     }
 }
